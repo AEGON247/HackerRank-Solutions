@@ -1,0 +1,35 @@
+def sieve_and_sum(limit):
+    # Initialize a boolean list to determine if numbers are prime
+    sieve = [True] * (limit + 1)
+    sieve[0] = sieve[1] = False  # 0 and 1 are not prime numbers
+
+    # Apply Sieve of Eratosthenes
+    for start in range(2, int(limit ** 0.5) + 1):
+        if sieve[start]:
+            for multiple in range(start * start, limit + 1, start):
+                sieve[multiple] = False
+
+    # Calculate cumulative sum of primes
+    prime_sum = [0] * (limit + 1)
+    current_sum = 0
+
+    for i in range(1, limit + 1):
+        if sieve[i]:
+            current_sum += i
+        prime_sum[i] = current_sum
+
+    return prime_sum
+
+# Input for the number of test cases
+t = int(input())
+queries = [int(input()) for _ in range(t)]
+
+# Determine the maximum value of 'n' across all test cases
+max_n = max(queries) if t > 0 else 0
+
+# Generate sieve and cumulative sum of primes only once
+prime_sum = sieve_and_sum(max_n)
+
+# Output the sum of primes below each given 'n'
+for n in queries:
+    print(prime_sum[n])

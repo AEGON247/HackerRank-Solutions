@@ -1,0 +1,57 @@
+def count_divisors(n):
+    count = 1  # Start with 1 for the overall product of divisors
+    factor = 2
+    
+    # Count the number of 2s that divide n
+    exponent = 0
+    while n % factor == 0:
+        n //= factor
+        exponent += 1
+    count *= (exponent + 1)
+    
+    # Check for odd factors from 3 to sqrt(n)
+    factor = 3
+    while factor * factor <= n:
+        exponent = 0
+        while n % factor == 0:
+            n //= factor
+            exponent += 1
+        count *= (exponent + 1)
+        factor += 2
+    
+    # If n becomes a prime number greater than 2
+    if n > 2:
+        count *= 2  # (n^1 contributes two divisors: 1 and n)
+    
+    return count
+
+def first_triangle_number_with_over_n_divisors(n):
+    k = 1
+    while True:
+        triangle_number = k * (k + 1) // 2  # Calculate the k-th triangle number
+        
+        # Count divisors of the triangle number
+        if k % 2 == 0:
+            # k is even, count divisors of k/2 and k + 1
+            divisors_count = count_divisors(k // 2) * count_divisors(k + 1)
+        else:
+            # k is odd, count divisors of k and (k + 1)/2
+            divisors_count = count_divisors(k) * count_divisors((k + 1) // 2)
+        
+        if divisors_count > n:
+            return triangle_number
+        
+        k += 1
+
+# Main program
+if __name__ == "__main__":
+    t = int(input())
+    results = []
+    
+    for _ in range(t):
+        N = int(input())
+        result = first_triangle_number_with_over_n_divisors(N)
+        results.append(result)
+
+    for res in results:
+        print(res)

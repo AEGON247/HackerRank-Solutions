@@ -1,0 +1,34 @@
+def greatest_product(n_str, k):
+    max_product = 0
+
+    # Iterate over all possible windows of length K
+    for i in range(len(n_str) - k + 1):
+        # Extract the substring of length K
+        substring = n_str[i:i + k]
+        
+        # Calculate the product of digits in the substring
+        product = 1
+        for char in substring:
+            product *= int(char)
+
+        # Update max_product if the new product is greater
+        max_product = max(max_product, product)
+
+    return max_product
+
+# Input the number of test cases
+t = int(input().strip())
+
+c = []
+for _ in range(t):
+    # Input N and K for the current test case
+    n, k = map(int, input().split())
+    # Input the N-digit number as a string
+    n_str = input().strip()
+
+    # Output the greatest product of K consecutive digits for the current test case
+    result = greatest_product(n_str, k)
+    c.append(result)
+
+for i in c:
+    print(i)

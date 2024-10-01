@@ -1,0 +1,30 @@
+def find_max_triplet_product(N):
+    max_product = -1
+
+    # Iterate over possible values of 'a'
+    for a in range(1, N // 3):
+        # Calculate 'b' and 'c' based on 'a'
+        b = (N * (N - 2 * a)) // (2 * (N - a))
+        c = N - a - b
+
+        # Check if the found 'a', 'b', 'c' is a valid triplet
+        if a * a + b * b == c * c and a < b < c:
+            max_product = max(max_product, a * b * c)
+    
+    return max_product
+
+# Input number of test cases
+t = int(input())
+c = []
+
+# Iterate over each test case
+for _ in range(t):
+    N = int(input())
+
+    # Find and store the maximum possible product of Pythagorean triplets
+    result = find_max_triplet_product(N)
+    c.append(result)
+
+# Print results for all test cases
+for result in c:
+    print(result)

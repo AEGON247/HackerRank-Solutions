@@ -1,0 +1,44 @@
+def get_grid():
+    grid = []
+    
+    for _ in range(20):
+        line = list(map(int, input().strip().split()))
+        if len(line) != 20:
+            raise ValueError("Each line must contain exactly 20 integers.")
+        grid.append(line)
+    return grid
+
+def max_product_in_grid(grid):
+    max_product = 0
+    size = len(grid)
+
+    # Check all possible directions for the product of four adjacent numbers
+    for row in range(size):
+        for col in range(size):
+            # Right
+            if col <= size - 4:
+                product = grid[row][col] * grid[row][col + 1] * grid[row][col + 2] * grid[row][col + 3]
+                max_product = max(max_product, product)
+
+            # Down
+            if row <= size - 4:
+                product = grid[row][col] * grid[row + 1][col] * grid[row + 2][col] * grid[row + 3][col]
+                max_product = max(max_product, product)
+
+            # Diagonal down-right
+            if row <= size - 4 and col <= size - 4:
+                product = grid[row][col] * grid[row + 1][col + 1] * grid[row + 2][col + 2] * grid[row + 3][col + 3]
+                max_product = max(max_product, product)
+
+            # Diagonal down-left
+            if row <= size - 4 and col >= 3:
+                product = grid[row][col] * grid[row + 1][col - 1] * grid[row + 2][col - 2] * grid[row + 3][col - 3]
+                max_product = max(max_product, product)
+
+    return max_product
+
+# Main program
+if __name__ == "__main__":
+    grid = get_grid()
+    result = max_product_in_grid(grid)
+    print(result)

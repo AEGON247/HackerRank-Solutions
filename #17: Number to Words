@@ -1,0 +1,39 @@
+def number_to_words(n):
+    if n == 0:
+        return "Zero"
+    
+    ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
+            "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"]
+    tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"]
+    thousands = ["", "Thousand", "Million", "Billion"]
+
+    def convert_hundred(num):
+        if num < 20:
+            return ones[num]
+        elif num < 100:
+            return tens[num // 10] + (" " + ones[num % 10] if num % 10 != 0 else "")
+        else:
+            return ones[num // 100] + " Hundred" + (" " + convert_hundred(num % 100) if num % 100 != 0 else "")
+
+    def convert_large_number(num):
+        if num == 0:
+            return ""
+        
+        parts = []
+        for i in range(len(thousands)):
+            chunk = num % 1000
+            if chunk != 0:
+                parts.append(convert_hundred(chunk) + " " + thousands[i])
+            num //= 1000
+        return ', '.join(part for part in reversed(parts) if part).strip()
+    
+    return convert_large_number(n)
+
+t = int(input())
+c = []
+for _ in range(t):
+    n = int(input())
+    c.append(number_to_words(n))
+    
+for i in c:
+    print(i)

@@ -1,0 +1,33 @@
+import math
+
+def first_fibonacci_with_n_digits(N):
+    # Check if N is a positive integer
+    if N <= 0:
+        raise ValueError("Please enter a positive integer for the number of digits.")
+    
+    if N == 1:
+        return 1  # The first Fibonacci number with 1 digit is F(1) = 1
+    if N == 2:
+        return 7  # The first Fibonacci number with 2 digits is F(7) = 13
+
+    # Using Binet's formula to find the index of the first Fibonacci number with N digits
+    phi = (1 + math.sqrt(5)) / 2  # The golden ratio
+
+    # Using logarithms to find the required index
+    n = math.ceil((N - 1 + math.log10(5) / 2) / math.log10(phi))
+
+    return n  # Return the index of the first term with N digits
+
+# Read input and process multiple test cases
+t = int(input())
+results = []
+for _ in range(t):
+    N = int(input())
+    try:
+        result = first_fibonacci_with_n_digits(N)
+        results.append(result)
+    except ValueError as e:
+        results.append(str(e))
+
+for result in results:
+    print(result)

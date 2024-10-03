@@ -1,0 +1,20 @@
+def sum_of_digits_of_power_of_2(N):
+    # Calculate 2^N
+    power_of_2 = 2 ** N
+    
+    # Convert to string and sum the digits
+    digit_sum = sum(int(digit) for digit in str(power_of_2))
+    
+    return digit_sum
+
+# Handle multiple test cases
+t = int(input())
+results = []
+for _ in range(t):
+    n = int(input())
+    result = sum_of_digits_of_power_of_2(n)
+    results.append(result)
+
+# Print all results
+for res in results:
+    print(res)

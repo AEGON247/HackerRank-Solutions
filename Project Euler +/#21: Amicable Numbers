@@ -1,0 +1,48 @@
+import math
+
+def properdivs(num, divisor_sums):
+    if num in divisor_sums:
+        return divisor_sums[num]
+    
+    totalsum = 1 
+    sqrt_num = int(math.sqrt(num))
+
+    for i in range(2, sqrt_num + 1):
+        if num % i == 0:
+            totalsum += i
+            if i != num // i:
+                totalsum += num // i
+
+    divisor_sums[num] = totalsum
+    return totalsum
+
+def amicablesum(cap):
+    fullsum = 0
+    divisor_sums = {}
+    visited = set()
+
+    for i in range(2, cap):
+        if i in visited:
+            continue
+
+        temp1 = properdivs(i, divisor_sums)
+        if temp1 != i:
+            temp2 = properdivs(temp1, divisor_sums)
+            if temp2 == i:
+                fullsum += i
+                if temp1 < cap:
+                    fullsum += temp1
+                visited.add(temp1)
+                visited.add(i)
+
+    return fullsum
+
+t = int(input())
+results = []
+for _ in range(t):
+    n = int(input())
+    result = amicablesum(n)
+    results.append(result)
+
+for res in results:
+    print(res)

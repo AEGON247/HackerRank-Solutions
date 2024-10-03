@@ -1,0 +1,10 @@
+def is_power_sum(n, p):
+    return n == sum(int(digit) ** p for digit in str(n))
+
+def sum_of_power_sums(power):
+    limit = 9 ** power * (power + 1)
+    return sum(n for n in range(10, limit) if is_power_sum(n, power))
+
+N = int(input())
+result = sum_of_power_sums(N)
+print(result)

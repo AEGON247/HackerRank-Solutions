@@ -1,0 +1,28 @@
+import math
+
+def find_nth_lexicographic_permutation(N):
+    chars = list("abcdefghijklm")
+    permutation = []
+
+    N -= 1
+
+    while chars:
+        n_fact = math.factorial(len(chars) - 1)
+        index = N // n_fact
+        permutation.append(chars.pop(index))
+        N %= n_fact
+
+    return ''.join(permutation)
+
+# Input
+T = int(input())
+results = []
+
+for _ in range(T):
+    N = int(input())
+    result = find_nth_lexicographic_permutation(N)
+    results.append(result)
+
+# Output
+for result in results:
+    print(result)

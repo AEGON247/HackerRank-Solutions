@@ -1,0 +1,19 @@
+def factorial(n):
+    if n == 0 or n == 1:
+        return 1
+    result = 1
+    for i in range(2, n + 1):
+        result *= i
+    return result
+
+def sum_of_digits(n):
+    return sum(int(digit) for digit in str(n))
+
+t = int(input())
+results = []
+for _ in range(t):
+    n = int(input())
+    results.append(sum_of_digits(factorial(n)))
+
+for res in results:
+    print(res)
